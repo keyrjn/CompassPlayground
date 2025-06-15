@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compass App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2196f3">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div class="container">
+        <div class="compass-container">
+            <div class="compass">
+                <div class="compass-rose">
+                    <div class="direction">N</div>
+                    <div class="direction">E</div>
+                    <div class="direction">S</div>
+                    <div class="direction">W</div>
+                </div>
+                <div class="compass-needle"></div>
+            </div>
+            <div class="heading">0°</div>
+        </div>
+        <div class="install-prompt" id="installPrompt">
+            <p>Install this app on your device for the best experience!</p>
+            <button id="installButton">Install</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => console.log('ServiceWorker registered'))
+                .catch(err => console.log('ServiceWorker registration failed:', err));
+        }
+    </script>
+</body>
+</html> 
