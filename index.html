@@ -6,7 +6,7 @@
     <title>Compass App</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2196f3">
+    <meta name="theme-color" content="#000000">
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
 </head>
 <body>
@@ -17,21 +17,9 @@
             <div class="corner bottom-right" id="bottomRight">SE</div>
             <div class="corner bottom-left" id="bottomLeft">SW</div>
         </div>
-        <div class="compass-container">
-            <div class="compass">
-                <div class="compass-rose">
-                    <div class="direction">N</div>
-                    <div class="direction">E</div>
-                    <div class="direction">S</div>
-                    <div class="direction">W</div>
-                </div>
-                <div class="compass-needle"></div>
-            </div>
-            <div class="heading">0°</div>
-        </div>
-        <div class="install-prompt" id="installPrompt">
-            <p>Install this app on your device for the best experience!</p>
-            <button id="installButton">Install</button>
+        <div class="heading">0°</div>
+        <div class="camera-container">
+            <video id="camera" autoplay playsinline></video>
         </div>
     </div>
     <script src="app.js"></script>

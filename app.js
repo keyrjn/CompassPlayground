@@ -1,8 +1,4 @@
-let compassNeedle = document.querySelector('.compass-needle');
 let headingDisplay = document.querySelector('.heading');
-let installPrompt = document.getElementById('installPrompt');
-let installButton = document.getElementById('installButton');
-let deferredPrompt;
 
 // Corner direction elements
 const topLeft = document.getElementById('topLeft');
@@ -10,24 +6,21 @@ const topRight = document.getElementById('topRight');
 const bottomRight = document.getElementById('bottomRight');
 const bottomLeft = document.getElementById('bottomLeft');
 
-// Handle PWA installation
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    installPrompt.classList.add('visible');
-});
+// Camera setup
+const video = document.getElementById('camera');
 
-installButton.addEventListener('click', async () => {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-            console.log('User accepted the install prompt');
-        }
-        deferredPrompt = null;
-        installPrompt.classList.remove('visible');
+async function setupCamera() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: 'environment'
+            }
+        });
+        video.srcObject = stream;
+    } catch (err) {
+        console.error('Error accessing camera:', err);
     }
-});
+}
 
 // Function to get direction from heading
 function getDirection(heading) {
@@ -57,9 +50,6 @@ if (window.DeviceOrientationEvent) {
         // Get the compass heading
         let heading = event.webkitCompassHeading || Math.abs(event.alpha - 360);
         
-        // Update the compass needle rotation
-        compassNeedle.style.transform = `translate(-50%, -50%) rotate(${-heading}deg)`;
-        
         // Update the heading display
         headingDisplay.textContent = `${Math.round(heading)}°`;
 
@@ -82,6 +72,9 @@ function requestPermission() {
             .catch(console.error);
     }
 }
+
+// Initialize camera
+setupCamera();
 
 // Add click handler for iOS permission
 document.addEventListener('click', requestPermission, { once: true }); 
