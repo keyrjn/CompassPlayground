@@ -1,5 +1,3 @@
-let headingDisplay = document.querySelector('.heading');
-
 // Corner direction elements
 const topLeft = document.getElementById('topLeft');
 const topRight = document.getElementById('topRight');
@@ -50,14 +48,9 @@ if (window.DeviceOrientationEvent) {
         // Get the compass heading
         let heading = event.webkitCompassHeading || Math.abs(event.alpha - 360);
         
-        // Update the heading display
-        headingDisplay.textContent = `${Math.round(heading)}°`;
-
         // Update corner directions
         updateCornerDirections(heading);
     });
-} else {
-    headingDisplay.textContent = 'Compass not supported';
 }
 
 // Request permission for device orientation on iOS
